@@ -29,17 +29,15 @@ public class TwoStackQueue<T> {
     public T pop(){
         //弹出时候更新压入
         T popValue = stackPop.pop();
-        modifyStack(stackPop,stackPush);
+        modifyStack(stackPop, stackPush);
         return popValue;
     }
 
     private void modifyStack(Stack<T> source,Stack<T> end){
+        end.clear();
         if(source.empty()){
-            end.clear();
             return;
         }
-
-        end.clear();
 
         for(int i=source.size();i>0;i--){
             T headValue = source.elementAt(i-1);
@@ -47,54 +45,7 @@ public class TwoStackQueue<T> {
         }
     }
 
-    private void modifyStackPop(Stack<T> stackpush) {
-        if(stackpush.empty()){
-            throw new RuntimeException("StackPush is empty");
-        }
-
-        stackPop.clear();
-
-        for(int i=stackpush.size();i>0;i--){
-            T headValue = stackpush.elementAt(i-1);
-            stackPop.add(headValue);
-        }
-    }
-
-    private void modifyStackPush(Stack<T> stackpop) {
-        if(stackpop.empty()){
-            throw new RuntimeException("StackPop is empty");
-        }
-
-        stackPush.clear();
-
-        for(int i=stackpop.size();i>0;i--){
-            T headValue = stackpop.elementAt(i-1);
-            stackPush.add(headValue);
-        }
-    }
-
     public T peek(){
         return stackPop.peek();
     }
-
-    private void modifyStackPop() {
-        if(stackPop.isEmpty()){
-            addStackPop(stackPush);
-        }else{
-            clearStackPop();
-            addStackPop(stackPush);
-        }
-    }
-
-    private void addStackPop(Stack<T> stackpush) {
-        for(int i=stackpush.size();i>0;i--){
-            T headValue = stackpush.elementAt(i-1);
-            stackPop.add(headValue);
-        }
-    }
-
-    private void clearStackPop() {
-        stackPop.clear();
-    }
-
 }
